@@ -12,13 +12,12 @@ const ConfirmarCuenta = () => {
   // OBTENER DATOS URL
   const params = useParams();
   const { id } = params
-  // SOLO NEWCESITAMOS QUE SE EJECUTE UNA VEZ
+  // SOLO NECESITAMOS QUE SE EJECUTE UNA VEZ
   useEffect(() => {
     const confirmarCuenta = async () => {
       try {
           const url = `${import.meta.env.VITE_BACKEND_URL}/api/usuarios/confirmar/${id}`
           const { data } = await axios(url)
-
           setAlerta({
             msg: data.msg,
             error: false
@@ -57,4 +56,4 @@ const ConfirmarCuenta = () => {
   )
 }
 
-export default ConfirmarCuenta
+export default ConfirmarCuenta;
