@@ -7,6 +7,8 @@ import NuevoPassword from "./paginas/NuevoPassword";
 import ConfirmarCuenta from "./paginas/ConfirmarCuenta";
 
 import {AuthProvider} from "./context/AuthProvider"
+import Proyectos from "./paginas/Proyectos";
+import RutaProtegida from "./layouts/RutaProtegida";
 function App() {
   return (
     <BrowserRouter>
@@ -23,14 +25,14 @@ function App() {
             <Route path="olvide-password/:token" element={<NuevoPassword />} />
             <Route path="confirmar/:id" element={<ConfirmarCuenta />} />
           </Route>
-
-          {/* <Route path="/proyectos" element={<RutaProtegida />}>
+          {/* RUTA PROTEGIDA  */}
+          <Route path="/proyectos" element={<RutaProtegida />}>
             <Route index element={<Proyectos />} />
-            <Route path="crear-proyecto" element={<NuevoProyecto />} />
+            {/* <Route path="crear-proyecto" element={<NuevoProyecto />} />
             <Route path="nuevo-colaborador/:id" element={<NuevoColaborador />} />
             <Route path=":id" element={<Proyecto />} />
-            <Route path="editar/:id" element={<EditarProyecto />} />
-          </Route> */}
+            <Route path="editar/:id" element={<EditarProyecto />} /> */}
+          </Route>
         </Routes>
       </AuthProvider>
     </BrowserRouter>

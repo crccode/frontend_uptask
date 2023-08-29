@@ -8,13 +8,16 @@ const AuthContext = createContext();
 const AuthProvider = ({children}) => {
     // CUANDO EL USUARIO ES AUTENTICADO RETORNAMOS UN OBJETO
     const [auth, setAuth] = useState({})
-
+    //  DETIENE EL CODIGO PARA REALIZAR LA COMPROBACION
+    const [cargando, setCargando] = useState(true)
+    // EN CASO DE QUE EL USUARIO SE HAYA AUTENTICADO DE FORMA CORRECTA LO LLEVAMOS A PROYECTO
+    const navigate = useNavigate()
     // REVISAMOS SI HAY UN TOKEN EN LOCALSTORAGE
     useEffect(() => {
         const autenticarUsuario = async () => {
             const token = localStorage.getItem('token')
             if(!token){
-    
+                setCargando(false)
                 return
             }
             // ENVIAMOS HEADER AUTORIZATION TYPE BEARER
@@ -28,12 +31,13 @@ const AuthProvider = ({children}) => {
             try {
                 const { data } = await clienteAxios('/usuarios/perfil', config)
                 setAuth(data)
-
+                // EL USUARIO SE LOGEO DE FORMA CORRECTA 
+                navigate('/proyectos')
             } catch (error) {
                 setAuth({})
             } 
 
-     
+            setCargando(false)
 
             
         }
@@ -45,7 +49,9 @@ const AuthProvider = ({children}) => {
     return (
         <AuthContext.Provider
             value={{
-                setAuth
+                auth,
+                setAuth,
+                cargando
             }}
         >
             {children}

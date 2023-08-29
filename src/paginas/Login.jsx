@@ -13,8 +13,6 @@ const Login = () => {
 
   const {setAuth} = useAuth();
 
-  const navigate = useNavigate()
-
   // INTERACTUAMOS CON LA API
   const handleSubmit = async e => {
       e.preventDefault();
