@@ -3,11 +3,15 @@ import { Link,  useNavigate } from 'react-router-dom'
 import Alerta from '../components/Alerta'
 import clienteAxios from '../config/clienteAxios'
 
+import useAuth from '../hooks/useAuth'
+
 const Login = () => {
   // CREAMOS EL ESTATE 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [alerta, setAlerta] = useState({})
+
+  const {setAuth} = useAuth();
 
   const navigate = useNavigate()
 
@@ -28,7 +32,7 @@ const Login = () => {
           setAlerta({})
           // ALMACENAMOS EL TOKEN EN LOCALSTORAGE
           localStorage.setItem('token', data.token)
-
+          setAuth(data);
       } catch (error) {
           setAlerta({
               msg: error.response.data.msg,
