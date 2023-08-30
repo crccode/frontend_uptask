@@ -9,6 +9,7 @@ import ConfirmarCuenta from "./paginas/ConfirmarCuenta";
 import {AuthProvider} from "./context/AuthProvider"
 import Proyectos from "./paginas/Proyectos";
 import RutaProtegida from "./layouts/RutaProtegida";
+import NuevoProyecto from "./paginas/NuevoProyecto";
 function App() {
   return (
     <BrowserRouter>
@@ -28,8 +29,9 @@ function App() {
           {/* RUTA PROTEGIDA  */}
           <Route path="/proyectos" element={<RutaProtegida />}>
             <Route index element={<Proyectos />} />
-            {/* <Route path="crear-proyecto" element={<NuevoProyecto />} />
-            <Route path="nuevo-colaborador/:id" element={<NuevoColaborador />} />
+            {/* CARGAMOS EL ELEMENTO NuevoProyecto  */}
+            <Route path="crear-proyecto" element={<NuevoProyecto />} />
+            {/* <Route path="nuevo-colaborador/:id" element={<NuevoColaborador />} />
             <Route path=":id" element={<Proyecto />} />
             <Route path="editar/:id" element={<EditarProyecto />} /> */}
           </Route>
