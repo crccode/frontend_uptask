@@ -12,6 +12,7 @@ import Proyectos from "./paginas/Proyectos";
 import RutaProtegida from "./layouts/RutaProtegida";
 import NuevoProyecto from "./paginas/NuevoProyecto";
 import Proyecto from "./paginas/Proyecto";
+import EditarProyecto from "./paginas/EditarProyecto";
 function App() {
   return (
     <BrowserRouter>
@@ -37,8 +38,7 @@ function App() {
               {/* :id ESTE COMODIN TOMA EL PATH /proyectos:id  */}
               <Route path=":id" element={<Proyecto />} /> 
 
-              {/* <Route path="nuevo-colaborador/:id" element={<NuevoColaborador />} /
-              <Route path="editar/:id" element={<EditarProyecto />} /> */}
+              <Route path="editar/:id" element={<EditarProyecto />} />
             </Route>
           </Routes>
         </ProyectosProvider>

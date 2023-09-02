@@ -47,10 +47,17 @@ const ProyectosProvider = ({children}) => {
 
     // ESTA FUNCION VA INTERACTURAR CON LA API
     const submitProyecto = async proyecto => {
-        // AGREGAMOS EL PROYECTO PERO NECESITAMOS EL TOKEN PARA HACERLO, LO USAMOS DEL LOCALSTORAGE
+        if(proyecto.id) {
+            await editarProyecto(proyecto)
+        } else {
+            await nuevoProyecto(proyecto)
+        }
+    }
+
+    const editarProyecto = async proyecto => {
         try {
             const token = localStorage.getItem('token')
-            if (!token) return 
+            if(!token) return
 
             const config = {
                 headers: {
@@ -58,21 +65,53 @@ const ProyectosProvider = ({children}) => {
                     Authorization: `Bearer ${token}`
                 }
             }
-            // data ES LA RESUPUESTA DE AXIOS
-            // proyecto ESTO VIENE DEL FORMULARIO
-            const { data } = await clienteAxios.post('/proyectos', proyecto, config)
-            // CADA VEZ QUE SE AGREGA UN PROYECTO ACTUALIZAMOS EL STATE
-            setProyectos([...proyectos, data])
+
+            const { data } = await clienteAxios.put(`/proyectos/${proyecto.id}`, proyecto, config)
+
+            // Sincronizar el state
+            const proyectosActualizados = proyectos.map(proyectoState => proyectoState._id === data._id ? data : proyectoState)
+            setProyectos(proyectosActualizados)
+
             setAlerta({
-                msg: 'Proyecto creado exitosamente',
+                msg: 'Proyecto Actualizado Correctamente',
                 error: false
             })
-            // DESPUIES DE 3 SEG LO REINICIARE
+
             setTimeout(() => {
                 setAlerta({})
                 navigate('/proyectos')
             }, 3000);
-        }catch (error) {
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const nuevoProyecto = async proyecto => {
+        try {
+            const token = localStorage.getItem('token')
+            if(!token) return
+
+            const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                }
+            }
+
+            const { data } = await clienteAxios.post('/proyectos', proyecto, config)
+
+            setProyectos([...proyectos, data])
+
+            setAlerta({
+                msg: 'Proyecto Creado Correctamente',
+                error: false
+            })
+
+            setTimeout(() => {
+                setAlerta({})
+                navigate('/proyectos')
+            }, 3000);
+        } catch (error) {
             console.log(error)
         }
     }

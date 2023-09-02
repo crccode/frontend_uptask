@@ -9,10 +9,20 @@ const FormularioProyecto = () => {
   const [descripcion, setDescripcion] = useState("");
   const [fechaEntrega, setFechaEntrega] = useState("");
   const [cliente, setCliente] = useState("");
-
-
+  // SI TENEMOS UN ID EN LA URL ESTAMOS EDITANDO SINO LO CREAMOS
+  const params = useParams();
   // EXTRAEMOS EL METODOS DEL CONTEXT
-  const { mostrarAlerta, alerta, submitProyecto } = useProyectos();
+  const { mostrarAlerta, alerta, submitProyecto, proyecto } = useProyectos();
+  // LLENAMOS LOS CAMPOS CON EL PROYECTO ACTUAL
+  useEffect(() => {
+    if( params.id ) {
+        setId(proyecto._id)
+        setNombre(proyecto.nombre)
+        setDescripcion(proyecto.descripcion)
+        setFechaEntrega(proyecto.fechaEntrega?.split('T')[0])
+        setCliente(proyecto.cliente)
+    } 
+  }, [params])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,6 +35,7 @@ const FormularioProyecto = () => {
 
       return;
     }
+    
 
     // Pasar los datos hacia el provider
     await submitProyecto({ id, nombre, descripcion, fechaEntrega, cliente });
@@ -35,7 +46,7 @@ const FormularioProyecto = () => {
     setFechaEntrega("");
     setCliente("");
   };
-
+  
   const { msg } = alerta;
 
   return (
