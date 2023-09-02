@@ -11,6 +11,7 @@ import {ProyectosProvider} from "./context/ProyectosProvider"
 import Proyectos from "./paginas/Proyectos";
 import RutaProtegida from "./layouts/RutaProtegida";
 import NuevoProyecto from "./paginas/NuevoProyecto";
+import Proyecto from "./paginas/Proyecto";
 function App() {
   return (
     <BrowserRouter>
@@ -33,8 +34,10 @@ function App() {
               <Route index element={<Proyectos />} />
       
               <Route path="crear-proyecto" element={<NuevoProyecto />} />
-              {/* <Route path="nuevo-colaborador/:id" element={<NuevoColaborador />} />
-              <Route path=":id" element={<Proyecto />} />
+              {/* :id ESTE COMODIN TOMA EL PATH /proyectos:id  */}
+              <Route path=":id" element={<Proyecto />} /> 
+
+              {/* <Route path="nuevo-colaborador/:id" element={<NuevoColaborador />} /
               <Route path="editar/:id" element={<EditarProyecto />} /> */}
             </Route>
           </Routes>
