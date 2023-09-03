@@ -10,9 +10,10 @@ const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [alerta, setAlerta] = useState({})
-
+  // hokks de autenticacion
   const {setAuth} = useAuth();
-
+  // HOKS DE NAMVEGACION
+  const navigate = useNavigate()
   // INTERACTUAMOS CON LA API
   const handleSubmit = async e => {
       e.preventDefault();
@@ -31,6 +32,7 @@ const Login = () => {
           // ALMACENAMOS EL TOKEN EN LOCALSTORAGE
           localStorage.setItem('token', data.token)
           setAuth(data);
+          navigate('/proyectos')
       } catch (error) {
           setAlerta({
               msg: error.response.data.msg,

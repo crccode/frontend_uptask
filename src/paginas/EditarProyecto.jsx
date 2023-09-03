@@ -10,9 +10,10 @@ const EditarProyecto = () => {
     useEffect( () => {
       obtenerProyecto(params.id)
     }, [])
-
+    // BOTON ELIMINAR
     const handleClick = () => {
         if(confirm('¿Deseas eliminar este proyecto?')) {
+            // ID QUE RECIBE DEL SERVER 
             eliminarProyecto(params.id)
         } 
     }
